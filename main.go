@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 )
 
@@ -36,5 +37,31 @@ func main() {
 	}
 
 	log.Printf("unmarshalled: %v", unmarshalled)
+
+	// write JSON from a struct
+	var mySlice []Person
+
+	var m1 Person
+	m1.FirstName = "Wally"
+	m1.LastName = "West"
+	m1.HairColor = "red"
+	m1.HasDog = false
+
+	mySlice = append(mySlice, m1)
+
+	var m2 Person
+	m2.FirstName = "Diana"
+	m2.LastName = "Prince"
+	m2.HairColor = "black"
+	m2.HasDog = true
+
+	mySlice = append(mySlice, m2)
+
+	newJson, err := json.MarshalIndent(mySlice, "", "    ")
+	if err != nil {
+		log.Println("Error marshalling", err)
+	}
+
+	fmt.Println(string(newJson))
 
 }
